@@ -1,4 +1,4 @@
-# Project
+# Gui Project
 
 Gui Application Project\
 Functions:
