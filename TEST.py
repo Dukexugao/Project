@@ -9,7 +9,7 @@ def import_beam():
                                server='20.36.19.132',
                                database = "Beam00320",
                                uid= 'xugao',
-                               pwd='h7zLeFdQNhApp166')
+                               pwd='xxxxxxxxxxxxxxxxxxx')
     return beam
 
 
