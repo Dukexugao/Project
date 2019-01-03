@@ -53,7 +53,7 @@ class MyTableWidget(QWidget):
                                server='20.36.19.132',
                                database = "Beam00320",
                                uid= 'xugao',
-                               pwd='h7zLeFdQNhApp166')
+                               pwd='xxxxxxxxxxxxxxxxxxxx')
             pla = """''"""+aaaa+"""''"""
             df = pd.read_sql("""
             
