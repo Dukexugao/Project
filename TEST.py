@@ -4,16 +4,11 @@ import numpy as np
 import pyodbc as db
 
 
-def import_beam():
-    beam = db.connect(driver='{SQL Server Native Client 11.0}',
-                               server='20.36.19.132',
-                               database = "Beam00320",
-                               uid= 'xugao',
-                               pwd='xxxxxxxxxxxxxxxxxxx')
-    return beam
-
-
-beam = import_beam()
+beam = db.connect(driver='{SQL Server Native Client 11.0}',
+                  server='20.36.19.132',
+                  database = "Beam00320",
+                  uid= 'xugao',
+                  pwd='xxxxxxxxxxxxxxxxxxx')
 
 def placement_report(placement):
     try:
