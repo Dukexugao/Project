@@ -20,14 +20,13 @@ from imblearn.over_sampling import SMOTE
 sm = SMOTE(random_state=12, ratio = 1.0)
 x_train_res, y_train_res = sm.fit_sample(x_train, y_train)
 
-
 #-----------------------------------------------------------------------------#
 ############### make model pipelines #########################################
 #-----------------------------------------------------------------------------#
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import ElasticNet, Ridge, Lasso
-from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier,BaggingClassifier,GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier
 
 # Create pipelines dictionary
 pipelines = {'rf' : make_pipeline(StandardScaler(), RandomForestClassifier(random_state=123)),
