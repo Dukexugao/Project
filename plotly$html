@@ -45,3 +45,63 @@ if __name__ == "__main__":
     
     
     ################# plotly
+    
+    from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtWebEngineWidgets import *
+
+import plotly.offline as po
+import plotly.graph_objs as go
+
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5 import QtCore, QtWidgets
+import sys
+
+import pandas as pd
+
+class TabWidget(QTabWidget):
+    def __init__(self, *args, **kwargs):        
+        QTabWidget.__init__(self, *args, **kwargs)        
+        self.left = 500
+        self.top = 200
+        self.width = 600
+        self.height = 450
+        self.setGeometry(self.left, self.top, self.width, self.height)
+        
+        datatouse  =  pd.read_csv('C:/Local/LCS Historicla Performance (BEAM)/Potfolio Analysis/arrowood_merged_all.csv')
+        x = datatouse['AcqBalance']
+        trace = go.Histogram(x=x, xbins=dict(start= 0, size=1000, end=30000, ),
+                             marker=dict(color='rgb(100,149,237)'))
+        layout = go.Layout(width=1400,height=700,
+                           title="Arrowood Balance Distribution",bargap=0.15, yaxis=dict(
+                           title='Count'), xaxis=dict(title='Acq Balance'))
+        fig = go.Figure(data=go.Data([trace]), layout=layout)       
+        
+        raw_html = '<html><head><meta charset="utf-8" />'
+        raw_html += '<script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        raw_html += '<body>'
+        raw_html += po.plot(fig, include_plotlyjs=False, output_type='div')
+        raw_html += '</body></html>'
+
+        fig_view = QWebEngineView()
+    # setHtml has a 2MB size limit, need to switch to setUrl on tmp file
+    # for large figures.
+        fig_view.setHtml(raw_html)
+        fig_view.show()
+        ix = self.addTab(fig_view, "Plotly")
+
+class HtmlView(QWebEngineView):
+    def __init__(self, *args, **kwargs):
+        QWebEngineView.__init__(self, *args, **kwargs)
+        self.tab = self.parent()
+
+ 
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    main = TabWidget()
+    main.show()
+    sys.exit(app.exec_())
+    
+    
