@@ -1,0 +1,47 @@
+######### web  code
+
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtWebEngineWidgets import *
+
+class TabWidget(QTabWidget):
+    def __init__(self, *args, **kwargs):
+        QTabWidget.__init__(self, *args, **kwargs)
+        self.left = 500
+        self.top = 200
+        self.width = 600
+        self.height = 450
+        self.setGeometry(self.left, self.top, self.width, self.height)
+        url = QUrl("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_a_target")
+        view = HtmlView(self)
+        view.load(url)
+        ix = self.addTab(view, "loading ...")
+
+class HtmlView(QWebEngineView):
+    def __init__(self, *args, **kwargs):
+        QWebEngineView.__init__(self, *args, **kwargs)
+        self.tab = self.parent()
+
+    def createWindow(self, windowType):
+        if windowType == QWebEnginePage.WebBrowserTab:
+            webView = HtmlView(self.tab)
+            ix = self.tab.addTab(webView, "loading ...")
+            self.tab.setCurrentIndex(ix)
+            return webView
+        return QWebEngineView.createWindow(self, windowType)
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    main = TabWidget()
+    main.show()
+    sys.exit(app.exec_())
+    
+    
+    
+    
+    
+    
+    
+    
+    ################# plotly
